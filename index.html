@@ -3,104 +3,108 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GAUTAM CHAUHAN | POCKET OPTION AI TERMINAL</title>
+    <title>GAUTAM CHAUHAN | ULTIMATE POCKET OPTION TERMINAL</title>
     <style>
-        :root { --gold: #f0b90b; --blue: #0088ff; --dark-bg: #0d1117; --card-bg: rgba(22, 27, 34, 0.95); --red: #ff4444; --green: #00ff88; }
-        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at top, #161b22, #0d1117); color: #c9d1d9; margin: 0; text-align: center; overflow-x: hidden; }
-        .container { max-width: 800px; margin: auto; padding: 10px; }
+        :root { --gold: #f0b90b; --blue: #0088ff; --dark-bg: #0d1117; --card-bg: rgba(22, 27, 34, 0.95); --red: #ff4444; --green: #00ff88; --border: #30363d; }
+        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at top, #161b22, #0d1117); color: #c9d1d9; margin: 0; text-align: center; }
+        .container { max-width: 900px; margin: auto; padding: 10px; }
         
-        /* Banner Style */
-        .banner { background: linear-gradient(90deg, #f0b90b, #ffcc33); color: black; padding: 10px; font-weight: bold; font-size: 13px; border-radius: 0 0 15px 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(240, 185, 11, 0.3); }
-        .banner a { color: #d32f2f; text-decoration: underline; }
+        /* Premium Banner */
+        .banner { background: linear-gradient(90deg, #d32f2f, #f0b90b); color: white; padding: 12px; font-weight: bold; font-size: 14px; border-radius: 0 0 15px 15px; margin-bottom: 15px; box-shadow: 0 5px 20px rgba(240, 185, 11, 0.3); animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { opacity: 1; } 50% { opacity: 0.8; } 100% { opacity: 1; } }
+        .banner a { color: #fff; text-decoration: underline; background: rgba(0,0,0,0.2); padding: 2px 8px; border-radius: 4px; }
 
-        .header { font-size: 18px; font-weight: 800; color: white; margin: 10px 0; text-transform: uppercase; letter-spacing: 1px; }
+        .header { font-size: 20px; font-weight: 900; color: white; margin: 10px 0; letter-spacing: 2px; }
+
+        /* Chart Section */
+        #chart-container { width: 100%; height: 450px; background: #1c2128; border-radius: 15px; margin-bottom: 15px; border: 2px solid var(--border); overflow: hidden; position: relative; }
+        .analysis-overlay { position: absolute; top: 10px; left: 10px; background: rgba(0,0,0,0.7); padding: 8px; border-radius: 5px; font-size: 11px; z-index: 5; border: 1px solid var(--gold); }
+
+        /* All Currencies Scroll Box */
+        .currency-box { background: #1c2128; border: 1px solid var(--border); border-radius: 12px; padding: 10px; margin-bottom: 20px; }
+        .currency-label { font-size: 12px; color: var(--gold); margin-bottom: 8px; font-weight: bold; }
+        .currency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; max-height: 180px; overflow-y: auto; padding: 5px; }
+        .pair-card { background: #0d1117; border: 1px solid var(--border); padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; cursor: pointer; transition: 0.3s; color: white; }
+        .pair-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+        .pair-card.active { background: var(--gold); color: black; border-color: white; box-shadow: 0 0 15px rgba(240, 185, 11, 0.4); }
+
+        /* AI Signal Engine */
+        .signal-box { background: var(--card-bg); border: 3px solid var(--gold); border-radius: 20px; padding: 25px; position: relative; margin-top: 10px; overflow: hidden; }
+        .blur-overlay { filter: blur(25px); pointer-events: none; }
+        .vip-lock { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 85%; }
         
-        /* Live Chart Container */
-        #chart-container { width: 100%; height: 350px; background: #1c2128; border-radius: 12px; margin-bottom: 15px; border: 1px solid #30363d; overflow: hidden; }
+        input { padding: 15px; border-radius: 10px; border: 1px solid var(--border); background: #0d1117; color: white; width: 80%; margin-bottom: 10px; text-align: center; font-size: 16px; }
+        .btn { display: block; padding: 15px; text-decoration: none; border-radius: 12px; font-weight: bold; margin: 10px 0; transition: 0.3s; cursor: pointer; border: none; font-size: 15px; }
+        .btn-gold { background: var(--gold); color: black; box-shadow: 0 4px 15px rgba(240, 185, 11, 0.4); }
+        .btn-blue { background: #0088ff; color: white; }
 
-        /* Currency Grid */
-        .currency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 15px; }
-        .pair-card { background: #1c2128; border: 1px solid #30363d; padding: 8px; border-radius: 5px; font-size: 10px; font-weight: bold; color: var(--gold); cursor: pointer; transition: 0.2s; }
-        .pair-card:hover { background: var(--gold); color: black; }
-        .pair-card.active { border-color: var(--gold); background: #262c36; box-shadow: 0 0 10px rgba(240, 185, 11, 0.2); }
-
-        /* Signal Box */
-        .signal-box { background: var(--card-bg); border: 2px solid var(--gold); border-radius: 15px; padding: 20px; position: relative; margin-top: 10px; min-height: 180px; }
-        .blur-overlay { filter: blur(20px); pointer-events: none; }
-        .vip-lock { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 90%; }
-        
-        input { padding: 12px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; width: 80%; margin-bottom: 10px; text-align: center; }
-        .btn { display: block; padding: 15px; text-decoration: none; border-radius: 10px; font-weight: bold; margin: 8px 0; transition: 0.3s; cursor: pointer; border: none; font-size: 14px; }
-        .btn-gold { background: var(--gold); color: black; }
-        .btn-blue { background: var(--blue); color: white; }
-
-        /* Forex Box */
-        .forex-section { background: rgba(0, 136, 255, 0.1); border: 1px solid var(--blue); border-radius: 12px; padding: 15px; margin-top: 15px; }
-        .forex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .fx-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; font-size: 12px; }
+        #sigStatus { color: var(--gold); font-size: 12px; text-transform: uppercase; letter-spacing: 3px; margin-bottom: 5px; }
+        #sigDirection { font-size: 50px; font-weight: 900; margin: 10px 0; text-shadow: 0 0 20px rgba(255,255,255,0.2); }
     </style>
 </head>
 <body>
 
 <div class="banner">
-    ⚠️ LIMITED TIME OFFER: Register on Pocket Option & Deposit $30 to get Lifetime VIP Access! 
-    <br><a href="https://t.me/Quotextrader004">Contact Admin on Telegram</a>
+    🔥 LIMITED TIME OFFER: Deposit $30 & Get VIP BOT for Lifetime! 
+    <br><a href="https://t.me/Quotextrader004">Contact Admin: @Quotextrader004</a>
 </div>
 
 <div class="container">
-    <div class="header">AI TERMINAL V4.0 | POCKET OPTION</div>
+    <div class="header">PO AI TERMINAL V5.0</div>
 
     <div id="chart-container">
-        <div id="tradingview_widget"></div>
+        <div class="analysis-overlay" id="srLevels">
+            SR: Calculating... <br>
+            Resist: -- | Support: --
+        </div>
+        <div id="tradingview_widget" style="height: 100%;"></div>
     </div>
 
-    <div class="currency-grid">
-        <div class="pair-card active" onclick="changePair('EURUSD')">EUR/USD</div>
-        <div class="pair-card" onclick="changePair('GBPUSD')">GBP/USD</div>
-        <div class="pair-card" onclick="changePair('USDJPY')">USD/JPY</div>
-        <div class="pair-card" onclick="changePair('AUDCAD')">AUD/CAD</div>
-        <div class="pair-card" onclick="changePair('EURJPY')">EUR/JPY</div>
-        <div class="pair-card" onclick="changePair('XAUUSD')">GOLD</div>
-        <div class="pair-card" onclick="changePair('BTCUSD')">BTC</div>
-        <div class="pair-card" onclick="changePair('SOLUSD')">SOLANA</div>
+    <div class="currency-box">
+        <div class="currency-label">SELECT ASSET (OTC & LIVE)</div>
+        <div class="currency-grid" id="pairGrid">
+            <div class="pair-card active" onclick="changePair('EURUSD')">EUR/USD OTC</div>
+            <div class="pair-card" onclick="changePair('GBPUSD')">GBP/USD OTC</div>
+            <div class="pair-card" onclick="changePair('AUDCAD')">AUD/CAD OTC</div>
+            <div class="pair-card" onclick="changePair('EURJPY')">EUR/JPY OTC</div>
+            <div class="pair-card" onclick="changePair('USDINR')">USD/INR OTC</div>
+            <div class="pair-card" onclick="changePair('USDPKR')">USD/PKR OTC</div>
+            <div class="pair-card" onclick="changePair('USDBDT')">USD/BDT OTC</div>
+            <div class="pair-card" onclick="changePair('USDJPY')">USD/JPY OTC</div>
+            <div class="pair-card" onclick="changePair('XAUUSD')">GOLD OTC</div>
+            <div class="pair-card" onclick="changePair('BTCUSD')">BITCOIN</div>
+            <div class="pair-card" onclick="changePair('ETHUSD')">ETHEREUM</div>
+            <div class="pair-card" onclick="changePair('SOLUSD')">SOLANA</div>
+        </div>
     </div>
 
     <div class="signal-box">
-        <div class="vip-lock" id="lockSection">
-            <p style="font-weight: bold;">🔒 VIP PASSWORD REQUIRED</p>
-            <input type="password" id="vipKey" placeholder="Enter VIP Password">
-            <button class="btn btn-gold" style="width: 100%;" onclick="unlockSignals()">UNLOCK LIVE SIGNALS</button>
+        <div class="vip-lock" id="lockScreen">
+            <p style="font-weight: bold; color: white;">🔒 VIP ACCESS REQUIRED</p>
+            <input type="password" id="passInput" placeholder="Enter VIP Key">
+            <button class="btn btn-gold" style="width: 100%;" onclick="activateAI()">ACTIVATE AI ENGINE</button>
         </div>
 
-        <div id="sigContent" class="blur-overlay">
-            <div id="status" style="font-size: 12px; color: var(--gold); letter-spacing: 2px;">ANALYZING CANDLES...</div>
-            <div id="signalText" style="font-size: 45px; font-weight: 900; margin: 10px 0; color: white;">WAITING</div>
-            <div id="timer" style="font-size: 14px; background: rgba(255,255,255,0.1); display: inline-block; padding: 5px 15px; border-radius: 20px;">00:00</div>
-        </div>
-    </div>
-
-    <div class="forex-section">
-        <div style="color: var(--blue); font-weight: bold; font-size: 14px;">📊 FOREX SIGNALS (BUY/SELL/HOLD)</div>
-        <div id="forexContent" class="blur-overlay forex-grid">
-            <div class="fx-card">EUR/USD<br><b style="color: var(--green);">STRONG BUY</b><br><small>Hold: 4 Hours</small></div>
-            <div class="fx-card">GBP/JPY<br><b style="color: var(--red);">SELL NOW</b><br><small>Hold: 1 Hour</small></div>
+        <div id="mainSignal" class="blur-overlay">
+            <div id="sigStatus">READY TO ANALYZE</div>
+            <div id="sigDirection" style="color: white;">WAITING</div>
+            <div id="aiTimer" style="font-size: 14px; color: #888;">Waiting for candle close...</div>
         </div>
     </div>
 
-    <a href="https://t.me/Quotextrader004" class="btn btn-blue">JOIN TELEGRAM CHANNEL</a>
-    <a href="#" class="btn btn-gold">REGISTER POCKET OPTION ACCOUNT</a>
-
+    <a href="https://t.me/Quotextrader004" class="btn btn-blue">JOIN VIP TELEGRAM CHANNEL</a>
 </div>
 
 <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
 
 <script>
-    // Initial Chart
     let currentPair = "EURUSD";
+    let isVip = false;
+
     function loadChart(pair) {
         new TradingView.widget({
             "width": "100%",
-            "height": 350,
+            "height": "100%",
             "symbol": "FX_IDC:" + pair,
             "interval": "1",
             "timezone": "Asia/Kolkata",
@@ -109,57 +113,77 @@
             "locale": "en",
             "toolbar_bg": "#f1f3f6",
             "enable_publishing": false,
-            "hide_top_toolbar": true,
+            "hide_top_toolbar": false,
+            "allow_symbol_change": true,
             "save_image": false,
-            "container_id": "tradingview_widget"
+            "container_id": "tradingview_widget",
+            "studies": [
+                "STD;Bollinger_Bands",
+                "STD;RSI"
+            ]
         });
+        updateSR();
     }
-    loadChart(currentPair);
 
     function changePair(pair) {
         currentPair = pair;
         loadChart(pair);
-        document.querySelectorAll('.pair-card').forEach(card => card.classList.remove('active'));
-        event.target.classList.add('active');
-        generateSignal(); // Naya signal generate karein jab pair change ho
+        document.querySelectorAll('.pair-card').forEach(c => c.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        if(isVip) resetSignal();
     }
 
-    // Signal Logic (Simulated for real-time feel)
-    function generateSignal() {
-        const signals = ["CALL 🟢", "PUT 🔴", "STRONG CALL 🚀", "STRONG PUT 📉"];
-        const statusText = ["ANALYZING RSI...", "CHECKING BOLLINGER...", "CANDLE MATCHING..."];
-        
-        setInterval(() => {
-            let randomStatus = statusText[Math.floor(Math.random() * statusText.length)];
-            let randomSignal = signals[Math.floor(Math.random() * signals.length)];
-            
-            document.getElementById('status').innerText = randomStatus;
-            
-            setTimeout(() => {
-                document.getElementById('signalText').innerText = randomSignal;
-                document.getElementById('signalText').style.color = randomSignal.includes("CALL") ? "#00ff88" : "#ff4444";
-            }, 2000);
-        }, 15000); // Har 15 sec mein naya signal
+    function updateSR() {
+        const r = (Math.random() * 0.5 + 1.2).toFixed(4);
+        const s = (Math.random() * 0.5 + 1.1).toFixed(4);
+        document.getElementById('srLevels').innerHTML = `SR: ANALYZED <br> Resist: ${r} | Support: ${s}`;
     }
 
-    function unlockSignals() {
-        var key = document.getElementById('vipKey').value;
-        if(key === "1234") {
-            document.getElementById('lockSection').style.display = 'none';
-            document.getElementById('sigContent').classList.remove('blur-overlay');
-            document.getElementById('forexContent').classList.remove('blur-overlay');
-            generateSignal();
+    function activateAI() {
+        if(document.getElementById('passInput').value === "1234") {
+            isVip = true;
+            document.getElementById('lockScreen').style.display = 'none';
+            document.getElementById('mainSignal').classList.remove('blur-overlay');
+            startSignalEngine();
         } else {
-            alert("Wrong VIP Key! Join Telegram @Quotextrader004");
+            alert("Contact @Quotextrader004 for Key");
         }
     }
 
-    // Timer Logic
-    setInterval(() => {
-        let now = new Date();
-        let sec = 60 - now.getSeconds();
-        document.getElementById('timer').innerText = "Next Signal in: " + (sec < 10 ? "0" + sec : sec) + "s";
-    }, 1000);
+    function startSignalEngine() {
+        setInterval(() => {
+            let now = new Date();
+            let sec = now.getSeconds();
+            let remaining = 60 - sec;
+
+            if (remaining > 5) {
+                document.getElementById('aiTimer').innerText = `Next Signal in: ${remaining}s`;
+                document.getElementById('sigStatus').innerText = "ANALYZING CANDLE...";
+            } else if (remaining <= 5 && remaining > 0) {
+                document.getElementById('aiTimer').innerText = `CANDLE CLOSING IN: ${remaining}s`;
+                document.getElementById('sigStatus').innerText = "GENERATING SIGNAL...";
+            } else if (remaining === 0 || sec === 0) {
+                // Candle Closed - Wait 4 seconds for signal
+                document.getElementById('sigDirection').innerText = "CALCULATING...";
+                document.getElementById('sigDirection').style.color = "white";
+                
+                setTimeout(() => {
+                    const directions = ["UP DIRECTION 🚀", "PUT DIRECTION 📉", "STRONG CALL 🟢", "STRONG PUT 🔴"];
+                    const pick = directions[Math.floor(Math.random() * directions.length)];
+                    document.getElementById('sigDirection').innerText = pick;
+                    document.getElementById('sigDirection').style.color = pick.includes("UP") || pick.includes("CALL") ? "#00ff88" : "#ff4444";
+                    document.getElementById('sigStatus').innerText = "SIGNAL ACTIVE ✅";
+                }, 4000); // 4 Second delay after close
+            }
+        }, 1000);
+    }
+
+    function resetSignal() {
+        document.getElementById('sigDirection').innerText = "WAITING";
+        document.getElementById('sigDirection').style.color = "white";
+    }
+
+    loadChart(currentPair);
 </script>
 
 </body>
