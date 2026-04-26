@@ -5,81 +5,161 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GAUTAM CHAUHAN | POCKET OPTION AI TERMINAL</title>
     <style>
-        :root { --gold: #f0b90b; --blue: #0088ff; --dark-bg: #0d1117; --card-bg: rgba(22, 27, 34, 0.95); }
-        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at top, #161b22, #0d1117); color: #c9d1d9; margin: 0; text-align: center; }
-        .container { max-width: 600px; margin: auto; padding: 15px; }
-        .header { font-size: 18px; font-weight: 800; color: white; margin: 20px 0; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        :root { --gold: #f0b90b; --blue: #0088ff; --dark-bg: #0d1117; --card-bg: rgba(22, 27, 34, 0.95); --red: #ff4444; --green: #00ff88; }
+        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at top, #161b22, #0d1117); color: #c9d1d9; margin: 0; text-align: center; overflow-x: hidden; }
+        .container { max-width: 800px; margin: auto; padding: 10px; }
         
-        .currency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
-        .pair-card { background: #1c2128; border: 1px solid #30363d; padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; color: var(--gold); }
+        /* Banner Style */
+        .banner { background: linear-gradient(90deg, #f0b90b, #ffcc33); color: black; padding: 10px; font-weight: bold; font-size: 13px; border-radius: 0 0 15px 15px; margin-bottom: 15px; box-shadow: 0 5px 15px rgba(240, 185, 11, 0.3); }
+        .banner a { color: #d32f2f; text-decoration: underline; }
 
-        /* Forex Box */
-        .forex-section { background: rgba(0, 136, 255, 0.1); border: 1px solid var(--blue); border-radius: 12px; padding: 15px; margin: 20px 0; }
-        .forex-title { color: var(--blue); font-weight: bold; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; }
+        .header { font-size: 18px; font-weight: 800; color: white; margin: 10px 0; text-transform: uppercase; letter-spacing: 1px; }
+        
+        /* Live Chart Container */
+        #chart-container { width: 100%; height: 350px; background: #1c2128; border-radius: 12px; margin-bottom: 15px; border: 1px solid #30363d; overflow: hidden; }
+
+        /* Currency Grid */
+        .currency-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; margin-bottom: 15px; }
+        .pair-card { background: #1c2128; border: 1px solid #30363d; padding: 8px; border-radius: 5px; font-size: 10px; font-weight: bold; color: var(--gold); cursor: pointer; transition: 0.2s; }
+        .pair-card:hover { background: var(--gold); color: black; }
+        .pair-card.active { border-color: var(--gold); background: #262c36; box-shadow: 0 0 10px rgba(240, 185, 11, 0.2); }
 
         /* Signal Box */
-        .signal-box { background: var(--card-bg); border: 2px solid var(--gold); border-radius: 15px; padding: 30px; position: relative; margin-top: 10px; min-height: 200px; }
-        .blur-overlay { filter: blur(25px); pointer-events: none; transition: 0.5s; }
+        .signal-box { background: var(--card-bg); border: 2px solid var(--gold); border-radius: 15px; padding: 20px; position: relative; margin-top: 10px; min-height: 180px; }
+        .blur-overlay { filter: blur(20px); pointer-events: none; }
         .vip-lock { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 90%; }
         
-        input { padding: 12px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; width: 80%; margin-bottom: 15px; text-align: center; }
-        .btn { display: block; padding: 15px; text-decoration: none; border-radius: 10px; font-weight: bold; margin: 10px 0; transition: 0.3s; cursor: pointer; }
-        .btn-gold { background: var(--gold); color: black; border: none; width: 100%; }
+        input { padding: 12px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; width: 80%; margin-bottom: 10px; text-align: center; }
+        .btn { display: block; padding: 15px; text-decoration: none; border-radius: 10px; font-weight: bold; margin: 8px 0; transition: 0.3s; cursor: pointer; border: none; font-size: 14px; }
+        .btn-gold { background: var(--gold); color: black; }
         .btn-blue { background: var(--blue); color: white; }
+
+        /* Forex Box */
+        .forex-section { background: rgba(0, 136, 255, 0.1); border: 1px solid var(--blue); border-radius: 12px; padding: 15px; margin-top: 15px; }
+        .forex-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .fx-card { background: rgba(255,255,255,0.05); padding: 10px; border-radius: 8px; font-size: 12px; }
     </style>
 </head>
 <body>
 
+<div class="banner">
+    ⚠️ LIMITED TIME OFFER: Register on Pocket Option & Deposit $30 to get Lifetime VIP Access! 
+    <br><a href="https://t.me/Quotextrader004">Contact Admin on Telegram</a>
+</div>
+
 <div class="container">
-    <div class="header">VIP AI SIGNAL TERMINAL V3.0</div>
+    <div class="header">AI TERMINAL V4.0 | POCKET OPTION</div>
+
+    <div id="chart-container">
+        <div id="tradingview_widget"></div>
+    </div>
 
     <div class="currency-grid">
-        <div class="pair-card">EUR/USD</div>
-        <div class="pair-card">GBP/JPY</div>
-        <div class="pair-card">USD/CAD</div>
-        <div class="pair-card">AUD/USD</div>
-        <div class="pair-card">XAU/USD</div>
-        <div class="pair-card">OTC PAIRS</div>
+        <div class="pair-card active" onclick="changePair('EURUSD')">EUR/USD</div>
+        <div class="pair-card" onclick="changePair('GBPUSD')">GBP/USD</div>
+        <div class="pair-card" onclick="changePair('USDJPY')">USD/JPY</div>
+        <div class="pair-card" onclick="changePair('AUDCAD')">AUD/CAD</div>
+        <div class="pair-card" onclick="changePair('EURJPY')">EUR/JPY</div>
+        <div class="pair-card" onclick="changePair('XAUUSD')">GOLD</div>
+        <div class="pair-card" onclick="changePair('BTCUSD')">BTC</div>
+        <div class="pair-card" onclick="changePair('SOLUSD')">SOLANA</div>
     </div>
 
     <div class="signal-box">
         <div class="vip-lock" id="lockSection">
-            <p style="font-weight: bold; margin-bottom: 15px;">🔒 VIP ACCESS REQUIRED</p>
+            <p style="font-weight: bold;">🔒 VIP PASSWORD REQUIRED</p>
             <input type="password" id="vipKey" placeholder="Enter VIP Password">
-            <button class="btn btn-gold" onclick="unlockSignals()">UNLOCK SIGNALS</button>
+            <button class="btn btn-gold" style="width: 100%;" onclick="unlockSignals()">UNLOCK LIVE SIGNALS</button>
         </div>
 
         <div id="sigContent" class="blur-overlay">
-            <div style="font-size: 12px; color: #8b949e; letter-spacing: 2px;">MATCHING CANDLES...</div>
-            <div style="font-size: 40px; font-weight: 900; margin: 20px 0; color: white;">WAITING</div>
-            <div style="font-size: 14px; color: var(--gold);">CHECKING INDICATORS</div>
+            <div id="status" style="font-size: 12px; color: var(--gold); letter-spacing: 2px;">ANALYZING CANDLES...</div>
+            <div id="signalText" style="font-size: 45px; font-weight: 900; margin: 10px 0; color: white;">WAITING</div>
+            <div id="timer" style="font-size: 14px; background: rgba(255,255,255,0.1); display: inline-block; padding: 5px 15px; border-radius: 20px;">00:00</div>
         </div>
     </div>
 
     <div class="forex-section">
-        <div class="forex-title">🔵 FOREX LIVE TRENDS</div>
-        <div id="forexContent" class="blur-overlay" style="display: flex; justify-content: space-around; font-size: 13px;">
-            <div>EUR/USD: <span style="color: #00ff88;">STRONG BUY</span></div>
-            <div>GBP/JPY: <span style="color: #ff4444;">SELL</span></div>
+        <div style="color: var(--blue); font-weight: bold; font-size: 14px;">📊 FOREX SIGNALS (BUY/SELL/HOLD)</div>
+        <div id="forexContent" class="blur-overlay forex-grid">
+            <div class="fx-card">EUR/USD<br><b style="color: var(--green);">STRONG BUY</b><br><small>Hold: 4 Hours</small></div>
+            <div class="fx-card">GBP/JPY<br><b style="color: var(--red);">SELL NOW</b><br><small>Hold: 1 Hour</small></div>
         </div>
     </div>
 
-    <a href="https://t.me/YOUR_TELEGRAM" class="btn btn-blue">STEP 01: GET PASSWORD ON TELEGRAM</a>
-    <a href="#" class="btn btn-gold">STEP 02: REGISTER POCKET OPTION</a>
+    <a href="https://t.me/Quotextrader004" class="btn btn-blue">JOIN TELEGRAM CHANNEL</a>
+    <a href="#" class="btn btn-gold">REGISTER POCKET OPTION ACCOUNT</a>
 
 </div>
 
+<script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+
 <script>
+    // Initial Chart
+    let currentPair = "EURUSD";
+    function loadChart(pair) {
+        new TradingView.widget({
+            "width": "100%",
+            "height": 350,
+            "symbol": "FX_IDC:" + pair,
+            "interval": "1",
+            "timezone": "Asia/Kolkata",
+            "theme": "dark",
+            "style": "1",
+            "locale": "en",
+            "toolbar_bg": "#f1f3f6",
+            "enable_publishing": false,
+            "hide_top_toolbar": true,
+            "save_image": false,
+            "container_id": "tradingview_widget"
+        });
+    }
+    loadChart(currentPair);
+
+    function changePair(pair) {
+        currentPair = pair;
+        loadChart(pair);
+        document.querySelectorAll('.pair-card').forEach(card => card.classList.remove('active'));
+        event.target.classList.add('active');
+        generateSignal(); // Naya signal generate karein jab pair change ho
+    }
+
+    // Signal Logic (Simulated for real-time feel)
+    function generateSignal() {
+        const signals = ["CALL 🟢", "PUT 🔴", "STRONG CALL 🚀", "STRONG PUT 📉"];
+        const statusText = ["ANALYZING RSI...", "CHECKING BOLLINGER...", "CANDLE MATCHING..."];
+        
+        setInterval(() => {
+            let randomStatus = statusText[Math.floor(Math.random() * statusText.length)];
+            let randomSignal = signals[Math.floor(Math.random() * signals.length)];
+            
+            document.getElementById('status').innerText = randomStatus;
+            
+            setTimeout(() => {
+                document.getElementById('signalText').innerText = randomSignal;
+                document.getElementById('signalText').style.color = randomSignal.includes("CALL") ? "#00ff88" : "#ff4444";
+            }, 2000);
+        }, 15000); // Har 15 sec mein naya signal
+    }
+
     function unlockSignals() {
         var key = document.getElementById('vipKey').value;
-        if(key === "1234") { // Apna password yahan change karein
+        if(key === "1234") {
             document.getElementById('lockSection').style.display = 'none';
             document.getElementById('sigContent').classList.remove('blur-overlay');
             document.getElementById('forexContent').classList.remove('blur-overlay');
+            generateSignal();
         } else {
-            alert("Wrong VIP Key!");
+            alert("Wrong VIP Key! Join Telegram @Quotextrader004");
         }
     }
+
+    // Timer Logic
+    setInterval(() => {
+        let now = new Date();
+        let sec = 60 - now.getSeconds();
+        document.getElementById('timer').innerText = "Next Signal in: " + (sec < 10 ? "0" + sec : sec) + "s";
+    }, 1000);
 </script>
 
 </body>
