@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GAUTAM CHAUHAN | POCKET OPTION AI TERMINAL</title>
+    <style>
+        :root { --gold: #f0b90b; --blue: #0088ff; --dark-bg: #0d1117; --card-bg: rgba(22, 27, 34, 0.95); }
+        body { font-family: 'Inter', sans-serif; background: radial-gradient(circle at top, #161b22, #0d1117); color: #c9d1d9; margin: 0; text-align: center; }
+        .container { max-width: 600px; margin: auto; padding: 15px; }
+        .header { font-size: 18px; font-weight: 800; color: white; margin: 20px 0; text-transform: uppercase; border-bottom: 2px solid var(--gold); padding-bottom: 10px; }
+        
+        .currency-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 20px; }
+        .pair-card { background: #1c2128; border: 1px solid #30363d; padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; color: var(--gold); }
+
+        /* Forex Box */
+        .forex-section { background: rgba(0, 136, 255, 0.1); border: 1px solid var(--blue); border-radius: 12px; padding: 15px; margin: 20px 0; }
+        .forex-title { color: var(--blue); font-weight: bold; margin-bottom: 10px; font-size: 14px; text-transform: uppercase; }
+
+        /* Signal Box */
+        .signal-box { background: var(--card-bg); border: 2px solid var(--gold); border-radius: 15px; padding: 30px; position: relative; margin-top: 10px; min-height: 200px; }
+        .blur-overlay { filter: blur(25px); pointer-events: none; transition: 0.5s; }
+        .vip-lock { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); z-index: 10; width: 90%; }
+        
+        input { padding: 12px; border-radius: 8px; border: 1px solid #30363d; background: #0d1117; color: white; width: 80%; margin-bottom: 15px; text-align: center; }
+        .btn { display: block; padding: 15px; text-decoration: none; border-radius: 10px; font-weight: bold; margin: 10px 0; transition: 0.3s; cursor: pointer; }
+        .btn-gold { background: var(--gold); color: black; border: none; width: 100%; }
+        .btn-blue { background: var(--blue); color: white; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">VIP AI SIGNAL TERMINAL V3.0</div>
+
+    <div class="currency-grid">
+        <div class="pair-card">EUR/USD</div>
+        <div class="pair-card">GBP/JPY</div>
+        <div class="pair-card">USD/CAD</div>
+        <div class="pair-card">AUD/USD</div>
+        <div class="pair-card">XAU/USD</div>
+        <div class="pair-card">OTC PAIRS</div>
+    </div>
+
+    <div class="signal-box">
+        <div class="vip-lock" id="lockSection">
+            <p style="font-weight: bold; margin-bottom: 15px;">🔒 VIP ACCESS REQUIRED</p>
+            <input type="password" id="vipKey" placeholder="Enter VIP Password">
+            <button class="btn btn-gold" onclick="unlockSignals()">UNLOCK SIGNALS</button>
+        </div>
+
+        <div id="sigContent" class="blur-overlay">
+            <div style="font-size: 12px; color: #8b949e; letter-spacing: 2px;">MATCHING CANDLES...</div>
+            <div style="font-size: 40px; font-weight: 900; margin: 20px 0; color: white;">WAITING</div>
+            <div style="font-size: 14px; color: var(--gold);">CHECKING INDICATORS</div>
+        </div>
+    </div>
+
+    <div class="forex-section">
+        <div class="forex-title">🔵 FOREX LIVE TRENDS</div>
+        <div id="forexContent" class="blur-overlay" style="display: flex; justify-content: space-around; font-size: 13px;">
+            <div>EUR/USD: <span style="color: #00ff88;">STRONG BUY</span></div>
+            <div>GBP/JPY: <span style="color: #ff4444;">SELL</span></div>
+        </div>
+    </div>
+
+    <a href="https://t.me/YOUR_TELEGRAM" class="btn btn-blue">STEP 01: GET PASSWORD ON TELEGRAM</a>
+    <a href="#" class="btn btn-gold">STEP 02: REGISTER POCKET OPTION</a>
+
+</div>
+
+<script>
+    function unlockSignals() {
+        var key = document.getElementById('vipKey').value;
+        if(key === "1234") { // Apna password yahan change karein
+            document.getElementById('lockSection').style.display = 'none';
+            document.getElementById('sigContent').classList.remove('blur-overlay');
+            document.getElementById('forexContent').classList.remove('blur-overlay');
+        } else {
+            alert("Wrong VIP Key!");
+        }
+    }
+</script>
+
+</body>
+</html>
